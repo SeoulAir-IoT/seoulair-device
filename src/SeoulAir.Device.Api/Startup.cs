@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using SeoulAir.Device.Api.Configuration;
+using SeoulAir.Device.Api.Extensions;
+using SeoulAir.Device.Domain.Services.Extensions;
 
 namespace SeoulAir.Device.Api
 {
@@ -22,12 +19,19 @@ namespace SeoulAir.Device.Api
 
         public IConfiguration Configuration { get; }
 
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
 
-            services.AddSwaggerGen();
+            services.AddApplicationSettings(Configuration);
+
+            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+
+            services.AddDomainServices();
+
+            services.AddSwagger();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,13 +48,7 @@ namespace SeoulAir.Device.Api
 
             app.UseAuthorization();
 
-            app.UseSwagger();
-
-            app.UseSwaggerUI(config =>
-            {
-                config.SwaggerEndpoint("/swagger/v1/swagger.json", "SaoulAir.Device API V1");
-                config.RoutePrefix = string.Empty;
-            });
+            app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {
