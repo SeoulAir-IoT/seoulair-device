@@ -1,4 +1,5 @@
-﻿using SeoulAir.Device.Domain.Interfaces.HelperClasses;
+﻿using SeoulAir.Device.Domain.Dtos;
+using SeoulAir.Device.Domain.Interfaces.HelperClasses;
 using System;
 using System.IO;
 
@@ -11,12 +12,11 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
         private readonly IRowConverter<TDto> _rowConverter;
         private StreamReader fileReader;
 
-        //TODO: implement configuration
         //TODO: implement exceptions
         //TODO: Inspect sonarLint message
-        public CsvReader(string dataPath, IRowConverter<TDto> rowConverter)
+        public CsvReader(AppSettings settings, IRowConverter<TDto> rowConverter)
         {
-            _dataPath = dataPath;
+            _dataPath = settings.DeviceSettings.DataPath;
             _rowConverter = rowConverter;
         }
 
@@ -49,6 +49,7 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
                 throw new Exception();
 
             fileReader = new StreamReader(_dataPath);
+            fileReader.ReadLine();
         }
 
         public bool TryReadNextRow(out TDto result)

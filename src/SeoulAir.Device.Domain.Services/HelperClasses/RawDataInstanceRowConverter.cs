@@ -9,9 +9,9 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
     public class RawDataInstanceRowConverter : IRowConverter<RawDataInstanceDto>
     {
         //TODO: implement error handling
-        public RawDataInstanceDto ConvertRow(IEnumerable<string> columns)
+        public RawDataInstanceDto ConvertRow(ICollection<string> columns)
         {
-            if (columns.Count() != 14)
+            if (columns.Count() != 15)
                 throw new Exception();
 
             RawDataInstanceDto result = new RawDataInstanceDto();
@@ -36,7 +36,7 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
 
             result.StationInfo.StationCode = shortHolder;
 
-            result.StationInfo.StationAddress = string.Join(",", columns, 2, 5);
+            result.StationInfo.StationAddress = string.Join(",", columns.ToArray(), 2, 5).Trim('\"');
 
             if (!double.TryParse(columns[7], out var doubleHolder))
                 throw new Exception();
