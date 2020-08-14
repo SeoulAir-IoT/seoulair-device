@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SeoulAir.Device.Domain.Dtos;
 using SeoulAir.Device.Domain.Interfaces.Services;
-using System;
 
 namespace SeoulAir.Device.Api.Controllers
 {
@@ -18,16 +16,7 @@ namespace SeoulAir.Device.Api.Controllers
         [HttpGet]
         public IActionResult Next()
         {
-            RawDataInstanceDto result;
-            try
-            {
-                result = _service.ReadNext();
-            }
-            catch(Exception ex)
-            {
-                return BadRequest();
-            }
-            return Ok(result);
+            return Ok(_service.ReadNext());
         }
     }
 }

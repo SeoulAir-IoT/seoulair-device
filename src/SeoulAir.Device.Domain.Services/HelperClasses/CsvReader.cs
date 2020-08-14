@@ -1,19 +1,19 @@
 ﻿using SeoulAir.Device.Domain.Dtos;
+using SeoulAir.Device.Domain.Exceptions;
 using SeoulAir.Device.Domain.Interfaces.HelperClasses;
 using System;
 using System.IO;
+using static SeoulAir.Device.Domain.Resources.Strings;
 
 namespace SeoulAir.Device.Domain.Services.HelperClasses
 {
-    public class CsvReader<TDto> : ICsvReader<TDto>
+    public sealed class CsvReader<TDto> : ICsvReader<TDto>
         where TDto : class
     {
         private readonly string _dataPath;
-        private readonly IRowConverter<TDto> _rowConverter;
         private StreamReader fileReader;
+        private readonly IRowConverter<TDto> _rowConverter;
 
-        //TODO: implement exceptions
-        //TODO: Inspect sonarLint message
         public CsvReader(AppSettings settings, IRowConverter<TDto> rowConverter)
         {
             _dataPath = settings.DeviceSettings.DataPath;
@@ -30,12 +30,6 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
             fileReader = null;
         }
 
-        public void Dispose()
-        {
-            fileReader.Close();
-            fileReader.Dispose();
-        }
-
         public void ReopenFile()
         {
             if (fileReader != null)
@@ -46,7 +40,7 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
             }
 
             if (!File.Exists(_dataPath))
-                throw new Exception();
+                throw new FileDoesNotExistException(FileDoesNotExistMessage);
 
             fileReader = new StreamReader(_dataPath);
             fileReader.ReadLine();
@@ -58,10 +52,16 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
                 return;
 
             if (!File.Exists(_dataPath))
-                throw new Exception();
+                throw new FileDoesNotExistException(FileDoesNotExistMessage);
 
             fileReader = new StreamReader(_dataPath);
             fileReader.ReadLine();
+        }
+
+        public void Dispose()
+        {
+            fileReader.Close();
+            fileReader.Dispose();
         }
 
         public bool TryReadNextRow(out TDto result)
