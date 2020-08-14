@@ -36,7 +36,7 @@ namespace SeoulAir.Device.Api.Controllers
             return Ok(result);
         }
 
-        [HttpPut("/treshold")]
+        [HttpPut("treshold")]
         public IActionResult UpdateTimeTrashold(uint newTreshould)
         {
             try
@@ -50,7 +50,7 @@ namespace SeoulAir.Device.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut("/deviceType")]
+        [HttpPut("deviceType")]
         public IActionResult Put(string newDeviceType)
         {
             try

@@ -6,6 +6,8 @@ namespace SeoulAir.Device.Domain.Interfaces.HelperClasses
     {
         void OpenFile();
 
+        void ReopenFile();
+
         void CloseFile();
 
         bool TryReadNextRow(out TDto result);

@@ -11,9 +11,9 @@ namespace SeoulAir.Device.Domain.Services.Extensions
         public static IServiceCollection AddDomainServices(this IServiceCollection services)
         {
             services.AddScoped<IConfigurationService, ConfigurationService>();
-            services.AddScoped<IDataService, DataService>();
-            services.AddScoped<ICsvReader<RawDataInstanceDto>, CsvReader<RawDataInstanceDto>>();
-            services.AddScoped<IRowConverter<RawDataInstanceDto>, RawDataInstanceRowConverter>();
+            services.AddSingleton<IDataService, DataService>();
+            services.AddSingleton<ICsvReader<RawDataInstanceDto>, CsvReader<RawDataInstanceDto>>();
+            services.AddSingleton<IRowConverter<RawDataInstanceDto>, RawDataInstanceRowConverter>();
 
             return services;
         }

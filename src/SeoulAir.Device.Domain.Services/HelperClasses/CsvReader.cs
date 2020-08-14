@@ -36,14 +36,26 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
             fileReader.Dispose();
         }
 
-        public void OpenFile()
+        public void ReopenFile()
         {
-            if(fileReader != null)
+            if (fileReader != null)
             {
                 fileReader.Close();
                 fileReader.Dispose();
                 fileReader = null;
             }
+
+            if (!File.Exists(_dataPath))
+                throw new Exception();
+
+            fileReader = new StreamReader(_dataPath);
+            fileReader.ReadLine();
+        }
+
+        public void OpenFile()
+        {
+            if (fileReader != null)
+                return;
 
             if (!File.Exists(_dataPath))
                 throw new Exception();
