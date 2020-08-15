@@ -42,6 +42,8 @@ namespace SeoulAir.Device.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
