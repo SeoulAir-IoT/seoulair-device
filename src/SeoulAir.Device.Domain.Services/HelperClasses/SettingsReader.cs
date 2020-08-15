@@ -45,6 +45,11 @@ namespace SeoulAir.Device.Api.HelperClasses
                 throw new ConfigurationException(string.Format(InvalidConfigurationAttribute, "Mqtt:Broker.Port"));
 
             appSettings.MqttSettings.BrokerPort = short.Parse(tempHolder);
+
+            if (!TryReadSetting("Mqtt:Topic", out tempHolder))
+                throw new ConfigurationException(string.Format(InvalidConfigurationAttribute, "Mqtt:Topic"));
+
+            appSettings.MqttSettings.PublishTopic = tempHolder;
         }
 
         private void ReadDeviceSettings(AppSettings appSettings)
