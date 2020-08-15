@@ -4,5 +4,6 @@
     {
         public string BrokerAddress { get; set; }
         public short BrokerPort { get; set; }
+        public string PublishTopic { get; set; }
     }
 }

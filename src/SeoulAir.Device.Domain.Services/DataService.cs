@@ -9,6 +9,7 @@ namespace SeoulAir.Device.Domain.Services
     {
         private readonly DeviceSettings _settings;
         private readonly ICsvReader<RawDataInstanceDto> _dataReader;
+        private readonly IMqttService<RawDataInstanceDto> _mqttService;
         private Task CurrentTask;
 
         public RawDataInstanceDto LastReadData { get; private set; }
@@ -33,9 +34,12 @@ namespace SeoulAir.Device.Domain.Services
             }
         }
 
-        public DataService(AppSettings settings, ICsvReader<RawDataInstanceDto> dataReader)
+        public DataService(AppSettings settings,
+                           ICsvReader<RawDataInstanceDto> dataReader,
+                           IMqttService<RawDataInstanceDto> mqttService)
         {
             _settings = settings.DeviceSettings;
+            _mqttService = mqttService;
             _dataReader = dataReader;
             _isOn = false;
             LastReadData = null;
@@ -65,6 +69,7 @@ namespace SeoulAir.Device.Domain.Services
         private async Task SensorTaskAsync()
         {
             _dataReader.OpenFile();
+            await _mqttService.OpenConnection();
             while (IsOn)
             {
                 await Task.Delay((int)_settings.SendingTreshold);
@@ -75,7 +80,10 @@ namespace SeoulAir.Device.Domain.Services
 
                 _dataReader.TryReadNextRow(out result);
                 LastReadData = result;
+
+                await _mqttService.SendDto(result);
             }
+            await _mqttService.CloseConnection();
             _dataReader.CloseFile();
         }
     }

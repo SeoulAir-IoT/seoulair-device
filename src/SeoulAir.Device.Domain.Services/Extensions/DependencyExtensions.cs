@@ -14,6 +14,7 @@ namespace SeoulAir.Device.Domain.Services.Extensions
             services.AddSingleton<IDataService, DataService>();
             services.AddSingleton<ICsvReader<RawDataInstanceDto>, CsvReader<RawDataInstanceDto>>();
             services.AddSingleton<IRowConverter<RawDataInstanceDto>, RawDataInstanceRowConverter>();
+            services.AddSingleton<IMqttService<RawDataInstanceDto>, MqttService<RawDataInstanceDto>>();
 
             return services;
         }
