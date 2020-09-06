@@ -63,11 +63,13 @@ namespace SeoulAir.Device.Api.Configuration
                     code = HttpStatusCode.InternalServerError;
                     type = InternalServerErrorUri;
                     title = InternalServerErrorTitle;
+                    Console.Write(ex.ToString());
                     break;
                 default:
                     code = HttpStatusCode.NotImplemented;
                     type = NotImplementedUri;
                     title = NotImplementedTitle;
+                    Console.Write(ex.ToString());
                     break;
             }
 

@@ -62,6 +62,8 @@ namespace SeoulAir.Device.Domain.Services
 
         public void StartDevice()
         {
+            if (IsOn)
+                return;
             IsOn = true;
             CurrentTask = Task.Run(SensorTaskAsync);
         }
