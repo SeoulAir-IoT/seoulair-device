@@ -9,10 +9,27 @@
         public const string InvalidStationCodeMessage = "Application does not support provided station code format";
         public const string InvalidColumnTypeMessage = "Column {0} has unexpected data type.";
 
-        public const string InternalServerErrorUri = "https://tools.ietf.org/html/rfc7231#section-6.6.1";
-        public const string NotImplementedUri = "https://tools.ietf.org/html/rfc7231#section-6.6.2";
+        #region Exception Middleware Handler
 
-        public const string InternalServerErrorTitle = "500 Internal Server Error";
-        public const string NotImplementedTitle = "501 Not Implemented";
+        public const string InternalServerErrorUri = "https://tools.ietf.org/html/rfc7231#section-6.6.1";
+        public const string ConflictUri = "https://tools.ietf.org/html/rfc7231#section-6.5.8";
+        public const string InternalServerErrorTitle = "500 Internal Server Error.";
+        public const string ConflictTitle = "409 Conflict.";
+
+        #endregion
+
+        #region Swagger Documentation
+
+        public const string OpenApiInfoProjectName = "SeoulAir.Device API";
+        public const string OpenApiInfoTitle = "SeoulAir Device microservice.";
+        public const string OpenApiInfoProjectVersion = "1.0";
+        public const string OpenApiInfoDescription
+            = "SeoulAir Device is microservice that is part of SeoulAir project.\n" +
+            "For more information visit Gitlab Repository";
+        public const string SwaggerEndpoint = "/swagger/{0}/swagger.json";
+        public const string GitlabContactName = "Gitlab Repository";
+        public const string GitlabRepoUri = "http://gitlab.com/seoulair/seoulair-device.git";
+
+        #endregion
     }
 }

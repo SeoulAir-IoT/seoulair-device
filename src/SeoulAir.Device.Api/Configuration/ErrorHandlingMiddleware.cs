@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Logging;
 using SeoulAir.Device.Domain.Exceptions;
 using System;
 using System.Net;
+using System.Text.Json;
 using System.Threading.Tasks;
 using static SeoulAir.Device.Domain.Resources.Strings;
 
@@ -13,10 +13,12 @@ namespace SeoulAir.Device.Api.Configuration
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ErrorHandlingMiddleware> _logger;
 
-        public ErrorHandlingMiddleware(RequestDelegate next)
+        public ErrorHandlingMiddleware(RequestDelegate next, ILogger<ErrorHandlingMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task Invoke(HttpContext context)
@@ -31,14 +33,14 @@ namespace SeoulAir.Device.Api.Configuration
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception ex)
+        private Task HandleExceptionAsync(HttpContext context, Exception ex)
         {
             var problemDetails = GenerateProblemDetails(ex);
-            var jsonSetting = new JsonSerializerSettings
+            var jsonSetting = new JsonSerializerOptions
             {
-                ContractResolver = new CamelCasePropertyNamesContractResolver()
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
             };
-            var result = JsonConvert.SerializeObject(problemDetails, jsonSetting);
+            var result = JsonSerializer.Serialize(problemDetails, jsonSetting);
 
             context.Response.ContentType = "application/problem+json";
             context.Response.StatusCode = (int)problemDetails.Status;
@@ -46,7 +48,7 @@ namespace SeoulAir.Device.Api.Configuration
             return context.Response.WriteAsync(result);
         }
 
-        private static ProblemDetails GenerateProblemDetails(Exception ex)
+        private ProblemDetails GenerateProblemDetails(Exception ex)
         {
             string type;
             string title;
@@ -63,13 +65,13 @@ namespace SeoulAir.Device.Api.Configuration
                     code = HttpStatusCode.InternalServerError;
                     type = InternalServerErrorUri;
                     title = InternalServerErrorTitle;
-                    Console.Write(ex.ToString());
+                    _logger.LogError(ex.ToString());
                     break;
                 default:
                     code = HttpStatusCode.NotImplemented;
-                    type = NotImplementedUri;
-                    title = NotImplementedTitle;
-                    Console.Write(ex.ToString());
+                    type = ConflictUri;
+                    title = ConflictTitle;
+                    _logger.LogError(ex.ToString());
                     break;
             }
 

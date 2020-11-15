@@ -13,7 +13,7 @@ namespace SeoulAir.Device.Api.Controllers
         private readonly IConfigurationService _service;
         private readonly IMapper _mapper;
 
-        public ParametersController(IConfigurationService service, IMapper mapper) : base()
+        public ParametersController(IConfigurationService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;
@@ -24,7 +24,7 @@ namespace SeoulAir.Device.Api.Controllers
         {
             CurrentConfigurationModel result;
             result = _mapper.Map<CurrentConfigurationModel>(_service.GetCurrentParameters());
-            result.SendingTreshold += " ms";
+            result.ReadingDelayMs += " ms";
 
             return Ok(result);
         }
@@ -45,7 +45,7 @@ namespace SeoulAir.Device.Api.Controllers
             return NoContent();
         }
 
-        [HttpPut()]
+        [HttpPut]
         public IActionResult Put(CurrentConfigurationModel newConfiguration)
         {
             _service.Update(_mapper.Map<DeviceSettings>(newConfiguration));
