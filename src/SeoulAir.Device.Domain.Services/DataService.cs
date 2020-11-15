@@ -74,12 +74,11 @@ namespace SeoulAir.Device.Domain.Services
             await _mqttService.OpenConnection();
             while (IsOn)
             {
-                await Task.Delay((int)_settings.SendingTreshold);
-                RawDataInstanceDto result = null;
-
-                if (!_dataReader.TryReadNextRow(out result))
+                await Task.Delay((int)_settings.ReadingDelayMs);
+                if (!_dataReader.TryReadNextRow(out _))
                     _dataReader.ReopenFile();
 
+                RawDataInstanceDto result;
                 _dataReader.TryReadNextRow(out result);
                 LastReadData = result;
 

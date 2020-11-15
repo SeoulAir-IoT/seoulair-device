@@ -8,9 +8,7 @@ namespace SeoulAir.Device.Api.Configuration
     {
         public AutoMapperProfile()
         {
-            AllowNullDestinationValues = true;
             CreateMap<CurrentConfigurationModel, DeviceSettings>()
-                .ForMember(model => model.Type, settings => settings.MapFrom(dto => dto.DeviceType))
                 .ReverseMap();
         }
     }

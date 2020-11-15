@@ -23,5 +23,5 @@ WORKDIR /app
 
 COPY --from=build /app/src/SeoulAir.Device.Api/out ./
 COPY ./resources/data.csv ./resources/
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://+:5500
 ENTRYPOINT ["dotnet","SeoulAir.Device.Api.dll"]

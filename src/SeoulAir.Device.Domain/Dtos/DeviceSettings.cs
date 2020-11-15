@@ -2,8 +2,8 @@
 {
     public class DeviceSettings
     {
-        public uint SendingTreshold { get; set; }
-        public string Type { get; set; }
+        public uint ReadingDelayMs { get; set; }
+        public string Name { get; set; }
         public string DataPath { get; set; }
     }
 }

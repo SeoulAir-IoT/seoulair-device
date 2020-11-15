@@ -8,7 +8,7 @@ namespace SeoulAir.Device.Api.Controllers
     {
         private readonly IDataService _service;
 
-        public RowController(IDataService service) : base()
+        public RowController(IDataService service)
         {
             _service = service;
         }

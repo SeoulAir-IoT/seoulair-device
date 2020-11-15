@@ -17,18 +17,18 @@ namespace SeoulAir.Device.Domain.Services
 
         public void Update(uint newTreshold)
         {
-            _appSettings.DeviceSettings.SendingTreshold = newTreshold;
+            _appSettings.DeviceSettings.ReadingDelayMs = newTreshold;
         }
 
         public void Update(string newDeviceType)
         {
-            _appSettings.DeviceSettings.Type = newDeviceType;
+            _appSettings.DeviceSettings.Name = newDeviceType;
         }
 
-        public void Update(DeviceSettings newSettings)
+        public void Update(DeviceSettings newConfiguration)
         {
-            _appSettings.DeviceSettings.Type = newSettings.Type;
-            _appSettings.DeviceSettings.SendingTreshold = newSettings.SendingTreshold;
+            _appSettings.DeviceSettings.Name = newConfiguration.Name;
+            _appSettings.DeviceSettings.ReadingDelayMs = newConfiguration.ReadingDelayMs;
         }
     }
 }

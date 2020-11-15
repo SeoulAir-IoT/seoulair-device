@@ -56,15 +56,15 @@ namespace SeoulAir.Device.Api.HelperClasses
         {
             appSettings.DeviceSettings = new DeviceSettings();
 
-            if (!TryReadSetting("Device:Type", out var tempHolder))
-                throw new ConfigurationException(string.Format(InvalidConfigurationAttribute, "Device:Type"));
+            if (!TryReadSetting("Device:Name", out var tempHolder))
+                throw new ConfigurationException(string.Format(InvalidConfigurationAttribute, "Device:Name"));
 
-            appSettings.DeviceSettings.Type = tempHolder;
+            appSettings.DeviceSettings.Name = tempHolder;
 
-            if (!TryReadSetting("Device:Treshold", out tempHolder))
-                throw new ConfigurationException(string.Format(InvalidConfigurationAttribute, "Device:Treshold"));
+            if (!TryReadSetting("Device:ReadingDelayMs", out tempHolder))
+                throw new ConfigurationException(string.Format(InvalidConfigurationAttribute, "Device:ReadingDelayMs"));
 
-            appSettings.DeviceSettings.SendingTreshold = uint.Parse(tempHolder);
+            appSettings.DeviceSettings.ReadingDelayMs = uint.Parse(tempHolder);
 
             if (!TryReadSetting("Device:Data.Path", out tempHolder))
                 throw new ConfigurationException(string.Format(InvalidConfigurationAttribute, "Device:Data.Path"));

@@ -2,7 +2,7 @@
 {
     public class CurrentConfigurationModel
     {
-        public string DeviceType { get; set; }
-        public string SendingTreshold { get; set; }
+        public string Name { get; set; }
+        public string ReadingDelayMs { get; set; }
     }
 }
