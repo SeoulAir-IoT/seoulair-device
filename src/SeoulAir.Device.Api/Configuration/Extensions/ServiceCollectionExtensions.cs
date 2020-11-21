@@ -1,4 +1,7 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -16,6 +19,8 @@ namespace SeoulAir.Device.Api.Extensions
             services.AddSwaggerGen();
             services.ConfigureSwaggerGen(options =>
             {
+                var xmlDocumentationFileName = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlDocumentationFileName));
                 options.DescribeAllParametersInCamelCase();
                 options.SwaggerDoc(OpenApiInfoProjectVersion, new OpenApiInfo
                 {
