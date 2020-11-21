@@ -1,8 +1,8 @@
-﻿using SeoulAir.Device.Domain.Dtos;
-using SeoulAir.Device.Domain.Exceptions;
+﻿using SeoulAir.Device.Domain.Exceptions;
 using SeoulAir.Device.Domain.Interfaces.HelperClasses;
-using System;
 using System.IO;
+using Microsoft.Extensions.Options;
+using SeoulAir.Device.Domain.Options;
 using static SeoulAir.Device.Domain.Resources.Strings;
 
 namespace SeoulAir.Device.Domain.Services.HelperClasses
@@ -14,9 +14,9 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
         private StreamReader fileReader;
         private readonly IRowConverter<TDto> _rowConverter;
 
-        public CsvReader(AppSettings settings, IRowConverter<TDto> rowConverter)
+        public CsvReader(IOptions<AirQualitySensorOptions> settings, IRowConverter<TDto> rowConverter)
         {
-            _dataPath = settings.DeviceSettings.DataPath;
+            _dataPath = settings.Value.DataPath;
             _rowConverter = rowConverter;
         }
 

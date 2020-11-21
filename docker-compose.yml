@@ -5,29 +5,20 @@ services:
         container_name: seoulair-device
         restart: always
         image: seoulair-device
+        network_mode: bridge
         build:
             context: ./
             dockerfile: Dockerfile
         ports:
             - 5500:5500
-            - 5501:5501
-        networks:
-            seoulair_network:
-                ipv4_address: 172.18.0.3
-                
+        links:
+            - "eclipse-mosquitto"
+
     eclipse-mosquitto:
         container_name: eclipse-mosquitto
         restart: always
         image: eclipse-mosquitto
+        network_mode: bridge
         ports:
             - 1883:1883
             - 9001:9001
-        networks:
-            seoulair_network:
-                ipv4_address: 172.18.0.2
-
-networks:
-  default:
-    external:
-      name: seoulair_network
-                

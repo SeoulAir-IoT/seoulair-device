@@ -2,7 +2,6 @@
 {
     public static class Strings
     {
-        public const string InvalidConfigurationAttribute = "Invalid configuration file.\nAttribute: '{0}' is not set";
         public const string FileDoesNotExistMessage = "Specified file does not exist or does not match required extension.";
         public const string InvalidFileFormatMessage = "Specified file does not match format that is required for the device.";
         public const string InvalidDateFormatMessage = "Application does not support provided date format.";
@@ -31,5 +30,10 @@
         public const string GitlabRepoUri = "http://gitlab.com/seoulair/seoulair-device.git";
 
         #endregion
+
+        public const string ChangeColorExceptionMessage = "Impossible to change color while signal light device is off.";
+        public const string ParameterNullOrEmptyMessage = "Parameter {0} must not be null or empty string.";
+        public const string ParameterBetweenMessage = "Value of parameter {0} must be between {1} and {2}.";
+
     }
 }

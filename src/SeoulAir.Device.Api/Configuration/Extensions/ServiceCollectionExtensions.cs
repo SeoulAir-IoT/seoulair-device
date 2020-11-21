@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using SeoulAir.Device.Api.HelperClasses;
-using SeoulAir.Device.Domain.Dtos;
-using SeoulAir.Device.Domain.Interfaces.HelperClasses;
+using SeoulAir.Device.Domain.Options;
+using SeoulAir.Device.Domain.Services.OptionsValidators;
 using static SeoulAir.Device.Domain.Resources.Strings;
 
 namespace SeoulAir.Device.Api.Extensions
@@ -34,15 +34,22 @@ namespace SeoulAir.Device.Api.Extensions
             return services;
         }
 
-        public static IServiceCollection AddApplicationSettings(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddApplicationSettings(this IServiceCollection services,
+            IConfiguration configuration)
         {
-            ISettingsReader reader = new SettingsReader(configuration);
+            services.Configure<AirQualitySensorOptions>(
+                configuration.GetSection(AirQualitySensorOptions.AppSettingsPath));
+            services.AddSingleton<IValidateOptions<AirQualitySensorOptions>, AirQualitySensorOptionsValidator>();
 
-            AppSettings settings = reader.ReadAllSettings();
-            services.AddSingleton(settings);
+            services.Configure<SignalLightOptions>(
+                configuration.GetSection(SignalLightOptions.AppSettingsPath));
+            services.AddSingleton<IValidateOptions<SignalLightOptions>, SignalLightOptionsValidator>();
+
+            services.Configure<MqttConnectionOptions>(
+                configuration.GetSection(MqttConnectionOptions.AppSettingsPath));
+            services.AddSingleton<IValidateOptions<MqttConnectionOptions>, MqttOptionsValidator>();
 
             return services;
         }
-
     }
 }

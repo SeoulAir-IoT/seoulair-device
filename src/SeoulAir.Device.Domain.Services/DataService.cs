@@ -2,12 +2,14 @@
 using SeoulAir.Device.Domain.Interfaces.HelperClasses;
 using SeoulAir.Device.Domain.Interfaces.Services;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using SeoulAir.Device.Domain.Options;
 
 namespace SeoulAir.Device.Domain.Services
 {
     public class DataService : IDataService
     {
-        private readonly DeviceSettings _settings;
+        private readonly AirQualitySensorOptions _settings;
         private readonly ICsvReader<RawDataInstanceDto> _dataReader;
         private readonly IMqttService<RawDataInstanceDto> _mqttService;
         private Task CurrentTask;
@@ -34,11 +36,11 @@ namespace SeoulAir.Device.Domain.Services
             }
         }
 
-        public DataService(AppSettings settings,
+        public DataService(IOptions<AirQualitySensorOptions> settings,
                            ICsvReader<RawDataInstanceDto> dataReader,
                            IMqttService<RawDataInstanceDto> mqttService)
         {
-            _settings = settings.DeviceSettings;
+            _settings = settings.Value;
             _mqttService = mqttService;
             _dataReader = dataReader;
             _isOn = false;
