@@ -1,4 +1,3 @@
-using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -26,8 +25,6 @@ namespace SeoulAir.Device.Api
             services.AddControllers();
 
             services.AddApplicationSettings(Configuration);
-
-            services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
 
             services.AddDomainServices();
 

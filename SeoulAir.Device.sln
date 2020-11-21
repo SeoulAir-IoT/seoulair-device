@@ -9,6 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeoulAir.Device.Domain", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeoulAir.Device.Domain.Services", "src\SeoulAir.Device.Domain.Services\SeoulAir.Device.Domain.Services.csproj", "{53549C72-A719-4FFD-B1F3-09F9B1EDF538}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{3A3D5A2F-352F-428C-96F9-CD127AEB6D1D}"
+ProjectSection(SolutionItems) = preProject
+	docker-compose.yml = docker-compose.yml
+	Dockerfile = Dockerfile
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{07DE858F-F9DF-48FE-91F4-3EAFEB3B34CC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,5 +41,10 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {6A4F58D6-4CB7-4B7F-824E-379978E8B130}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{53549C72-A719-4FFD-B1F3-09F9B1EDF538} = {07DE858F-F9DF-48FE-91F4-3EAFEB3B34CC}
+		{50EFF8B0-D680-4077-90DC-EDC1613E746D} = {07DE858F-F9DF-48FE-91F4-3EAFEB3B34CC}
+		{751FC758-1663-4D26-AA80-F23963D400B3} = {07DE858F-F9DF-48FE-91F4-3EAFEB3B34CC}
 	EndGlobalSection
 EndGlobal

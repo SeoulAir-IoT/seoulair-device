@@ -6,18 +6,20 @@ using SeoulAir.Device.Domain.Dtos;
 using SeoulAir.Device.Domain.Interfaces.Services;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
+using SeoulAir.Device.Domain.Options;
 
 namespace SeoulAir.Device.Domain.Services
 {
     public sealed class MqttService<TDto> : IMqttService<TDto>
         where TDto : class
     {
-        private readonly MqttSettings _settings;
+        private readonly MqttConnectionOptions _settings;
         private IMqttClient _mqttClient;
 
-        public MqttService(AppSettings settings)
+        public MqttService(IOptions<MqttConnectionOptions> mqttConnectionSettings)
         {
-            _settings = settings.MqttSettings;
+            _settings = mqttConnectionSettings.Value;
         }
 
         public async Task CloseConnection()
@@ -45,7 +47,7 @@ namespace SeoulAir.Device.Domain.Services
             MqttFactory factory = new MqttFactory();
             IMqttClientOptions options = new MqttClientOptionsBuilder()
                 .WithTcpServer(_settings.BrokerAddress, _settings.BrokerPort)
-                .WithClientId("deviceClient")
+                .WithClientId(_settings.SenderClientId)
                 .Build();
 
             _mqttClient = factory.CreateMqttClient();
@@ -56,13 +58,13 @@ namespace SeoulAir.Device.Domain.Services
         {
             string jsonObject = JsonConvert.SerializeObject(messageObject);
 
-            MqttApplicationMessage Message = new MqttApplicationMessageBuilder()
-                .WithTopic(_settings.PublishTopic)
+            MqttApplicationMessage message = new MqttApplicationMessageBuilder()
+                .WithTopic(_settings.Topic)
                 .WithPayload(jsonObject)
                 .WithRetainFlag()
                 .Build();
 
-            await _mqttClient.PublishAsync(Message, CancellationToken.None);
+            await _mqttClient.PublishAsync(message, CancellationToken.None);
         }
     }
 }
