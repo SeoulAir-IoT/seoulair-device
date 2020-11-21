@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using SeoulAir.Device.Api.Configuration;
 using SeoulAir.Device.Api.Extensions;
 using SeoulAir.Device.Domain.Services.Extensions;
+using System.Text.Json.Serialization;
 
 namespace SeoulAir.Device.Api
 {
@@ -16,14 +17,14 @@ namespace SeoulAir.Device.Api
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-
+        private IConfiguration Configuration { get; }
+        
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
+            services.AddControllers().AddJsonOptions(options =>
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
+                
             services.AddApplicationSettings(Configuration);
 
             services.AddDomainServices();
