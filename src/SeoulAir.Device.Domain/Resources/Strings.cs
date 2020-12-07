@@ -2,8 +2,10 @@
 {
     public static class Strings
     {
-        public const string FileDoesNotExistMessage = "Specified file does not exist or does not match required extension.";
-        public const string InvalidFileFormatMessage = "Specified file does not match format that is required for the device.";
+        public const string FileDoesNotExistMessage =
+            "Specified file does not exist or does not match required extension.";
+        public const string InvalidFileFormatMessage =
+            "Specified file does not match format that is required for the device.";
         public const string InvalidDateFormatMessage = "Application does not support provided date format.";
         public const string InvalidStationCodeMessage = "Application does not support provided station code format";
         public const string InvalidColumnTypeMessage = "Column {0} has unexpected data type.";
@@ -31,9 +33,10 @@
 
         #endregion
 
-        public const string ChangeColorExceptionMessage = "Impossible to change color while signal light device is off.";
+        public const string ChangeColorExceptionMessage =
+            "Impossible to change color while signal light device is off or if it does not exist.";
         public const string ParameterNullOrEmptyMessage = "Parameter {0} must not be null or empty string.";
         public const string ParameterBetweenMessage = "Value of parameter {0} must be between {1} and {2}.";
-
+        public const string StationCodeDoesNotExistMessage = "Station code {0} unknown.";
     }
 }

@@ -16,6 +16,10 @@ namespace SeoulAir.Device.Domain.Services.OptionsValidators
             if (string.IsNullOrWhiteSpace(options.Name))
                 failureMessages.Add(string.Format(ParameterNullOrEmptyMessage, nameof(options.Name))
                     .FormatAsExceptionMessage());
+            
+            if (!options.StationCodes.Any())
+                failureMessages.Add(string.Format(ParameterNullOrEmptyMessage, nameof(options.StationCodes))
+                    .FormatAsExceptionMessage());
 
             return failureMessages.Any()
                 ? ValidateOptionsResult.Fail(failureMessages)
