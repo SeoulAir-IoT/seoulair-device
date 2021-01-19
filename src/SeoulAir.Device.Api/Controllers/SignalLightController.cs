@@ -83,7 +83,7 @@ namespace SeoulAir.Device.Api.Controllers
         /// <param name="name">New name.</param>
         /// <response code="200">Signal light is renamed.</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpPut("/api/[controller]/parameters/name")]
+        [HttpPut("/api/[controller]/parameters/{name}")]
         public IActionResult UpdateName(string name)
         {
             _configurationService.UpdateName(name);
@@ -94,7 +94,7 @@ namespace SeoulAir.Device.Api.Controllers
         /// <response code="200">Signal light always started with default color.</response>
         /// <param name="defaultLight">New default color value.</param>
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [HttpPut("/api/[controller]/parameters/defaultLight")]
+        [HttpPut("/api/[controller]/parameters/{defaultLight}")]
         public IActionResult UpdateDefaultLight(LightColor defaultLight)
         {
             _configurationService.UpdateDefaultLight(defaultLight);
