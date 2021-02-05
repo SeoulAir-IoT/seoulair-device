@@ -12,7 +12,7 @@ services:
         ports:
             - 5500:5500
         links:
-            - "eclipse-mosquitto"
+            - eclipse-mosquitto
 
     eclipse-mosquitto:
         container_name: eclipse-mosquitto
