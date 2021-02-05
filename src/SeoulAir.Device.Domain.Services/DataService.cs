@@ -12,24 +12,24 @@ namespace SeoulAir.Device.Domain.Services
         private readonly AirQualitySensorOptions _settings;
         private readonly ICsvReader<RawDataInstanceDto> _dataReader;
         private readonly IMqttService<RawDataInstanceDto> _mqttService;
-        private Task CurrentTask;
+        private Task _currentTask;
 
         public RawDataInstanceDto LastReadData { get; private set; }
 
-        private readonly object IsOnLocker = new object();
+        private readonly object _isOnLocker = new object();
         private bool _isOn;
         public bool IsOn
         {
             get
             {
-                lock (IsOnLocker)
+                lock (_isOnLocker)
                 {
                     return _isOn;
                 }
             }
             private set
             {
-                lock (IsOnLocker)
+                lock (_isOnLocker)
                 {
                     _isOn = value;
                 }
@@ -45,21 +45,21 @@ namespace SeoulAir.Device.Domain.Services
             _dataReader = dataReader;
             _isOn = false;
             LastReadData = null;
-            CurrentTask = null;
+            _currentTask = null;
         }
 
         public RawDataInstanceDto ReadNext()
         {
-            RawDataInstanceDto result = null;
             _dataReader.OpenFile();
-            _dataReader.TryReadNextRow(out result);
+            _dataReader.TryReadNextRow(out var result);
+            
             return result;
         }
 
         public void StopDevice()
         {
             IsOn = false;
-            CurrentTask.Wait();
+            _currentTask.Wait();
         }
 
         public void StartDevice()
@@ -67,7 +67,7 @@ namespace SeoulAir.Device.Domain.Services
             if (IsOn)
                 return;
             IsOn = true;
-            CurrentTask = Task.Run(SensorTaskAsync);
+            _currentTask = Task.Run(SensorTaskAsync);
         }
 
         private async Task SensorTaskAsync()
@@ -80,8 +80,7 @@ namespace SeoulAir.Device.Domain.Services
                 if (!_dataReader.TryReadNextRow(out _))
                     _dataReader.ReopenFile();
 
-                RawDataInstanceDto result;
-                _dataReader.TryReadNextRow(out result);
+                _dataReader.TryReadNextRow(out var result);
                 LastReadData = result;
 
                 await _mqttService.SendDto(result);

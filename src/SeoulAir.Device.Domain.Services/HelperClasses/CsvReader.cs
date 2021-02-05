@@ -11,7 +11,7 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
         where TDto : class
     {
         private readonly string _dataPath;
-        private StreamReader fileReader;
+        private StreamReader _fileReader;
         private readonly IRowConverter<TDto> _rowConverter;
 
         public CsvReader(IOptions<AirQualitySensorOptions> settings, IRowConverter<TDto> rowConverter)
@@ -22,58 +22,59 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
 
         public void CloseFile()
         {
-            if (fileReader == null)
+            if (_fileReader == null)
                 return;
 
-            fileReader.Close();
-            fileReader.Dispose();
-            fileReader = null;
+            _fileReader.Close();
+            _fileReader.Dispose();
+            _fileReader = null;
         }
 
         public void ReopenFile()
         {
-            if (fileReader != null)
+            if (_fileReader != null)
             {
-                fileReader.Close();
-                fileReader.Dispose();
-                fileReader = null;
+                _fileReader.Close();
+                _fileReader.Dispose();
+                _fileReader = null;
             }
 
             if (!File.Exists(_dataPath))
                 throw new FileDoesNotExistException(FileDoesNotExistMessage);
 
-            fileReader = new StreamReader(_dataPath);
-            fileReader.ReadLine();
+            _fileReader = new StreamReader(_dataPath);
+            _fileReader.ReadLine();
         }
 
         public void OpenFile()
         {
-            if (fileReader != null)
+            if (_fileReader != null)
                 return;
 
             if (!File.Exists(_dataPath))
                 throw new FileDoesNotExistException(FileDoesNotExistMessage);
 
-            fileReader = new StreamReader(_dataPath);
-            fileReader.ReadLine();
+            _fileReader = new StreamReader(_dataPath);
+            _fileReader.ReadLine();
         }
 
         public void Dispose()
         {
-            fileReader.Close();
-            fileReader.Dispose();
+            _fileReader.Close();
+            _fileReader.Dispose();
         }
 
         public bool TryReadNextRow(out TDto result)
         {
-            if (fileReader.EndOfStream)
+            if (_fileReader.EndOfStream)
             {
                 result = null;
                 return false;
             }
 
-            string singleRow = fileReader.ReadLine();
-            result = _rowConverter.ConvertRow(singleRow.Split(','));
+            var singleRow = _fileReader.ReadLine();
+            result = _rowConverter.ConvertRow(singleRow?.Split(','));
+            
             return true;
         }
     }

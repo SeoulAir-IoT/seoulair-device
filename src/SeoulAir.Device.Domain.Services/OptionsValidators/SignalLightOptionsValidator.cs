@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Options;
-using SeoulAir.Device.Domain.Extensions;
 using SeoulAir.Device.Domain.Options;
 using static SeoulAir.Device.Domain.Resources.Strings;
 
@@ -14,12 +13,10 @@ namespace SeoulAir.Device.Domain.Services.OptionsValidators
             ICollection<string> failureMessages = new List<string>();
 
             if (string.IsNullOrWhiteSpace(options.Name))
-                failureMessages.Add(string.Format(ParameterNullOrEmptyMessage, nameof(options.Name))
-                    .FormatAsExceptionMessage());
+                failureMessages.Add(string.Format(ParameterNullOrEmptyMessage, nameof(options.Name)));
             
             if (!options.StationCodes.Any())
-                failureMessages.Add(string.Format(ParameterNullOrEmptyMessage, nameof(options.StationCodes))
-                    .FormatAsExceptionMessage());
+                failureMessages.Add(string.Format(ParameterNullOrEmptyMessage, nameof(options.StationCodes)));
 
             return failureMessages.Any()
                 ? ValidateOptionsResult.Fail(failureMessages)

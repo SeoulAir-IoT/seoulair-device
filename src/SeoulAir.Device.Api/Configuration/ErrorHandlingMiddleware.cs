@@ -68,9 +68,9 @@ namespace SeoulAir.Device.Api.Configuration
                     _logger.LogError(ex.ToString());
                     break;
                 default:
-                    code = HttpStatusCode.NotImplemented;
-                    type = ConflictUri;
-                    title = ConflictTitle;
+                    code = HttpStatusCode.InternalServerError;
+                    type = InternalServerErrorUri;
+                    title = InternalServerErrorTitle;
                     _logger.LogError(ex.ToString());
                     break;
             }

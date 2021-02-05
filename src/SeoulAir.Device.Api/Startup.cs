@@ -4,9 +4,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SeoulAir.Device.Api.Configuration;
-using SeoulAir.Device.Api.Extensions;
 using SeoulAir.Device.Domain.Services.Extensions;
 using System.Text.Json.Serialization;
+using SeoulAir.Device.Api.Configuration.Extensions;
 
 namespace SeoulAir.Device.Api
 {

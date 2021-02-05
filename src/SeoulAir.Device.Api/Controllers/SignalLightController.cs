@@ -24,7 +24,7 @@ namespace SeoulAir.Device.Api.Controllers
         /// <response code="200">Operation completed successfully and boolean result is returned.</response>
         [ProducesResponseType(typeof(bool), StatusCodes.Status200OK)]
         [HttpGet("{stationCode}")]
-        public IActionResult IsOn(string stationCode)
+        public ActionResult<bool> IsOn(string stationCode)
         {
             return Ok(_signalLightService.IsOn(stationCode));
         }
@@ -33,13 +33,13 @@ namespace SeoulAir.Device.Api.Controllers
         /// <response code="200">Signal light color represented as a string.</response>
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [HttpGet("{stationCode}")]
-        public IActionResult ActiveColor(string stationCode)
+        public ActionResult<string> ActiveColor(string stationCode)
         {
             return Ok(_signalLightService.GetActiveColor(stationCode).ToString());
         }
 
         /// <summary>Updates active color of signal light for specified station code.</summary>
-        /// <response code="200">Signal light color is changed to new value.</response>
+        /// <response code="204">Signal light color is changed to new value.</response>
         /// <param name="stationCode">Station code of the light that needs to be changed</param>
         /// <param name="color">New color value. Color value is LightColor enum.</param>
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -47,59 +47,59 @@ namespace SeoulAir.Device.Api.Controllers
         public IActionResult ChangeActiveColor(string stationCode, LightColor color)
         {
             _signalLightService.ChangeColor(stationCode, color);
-            return Ok();
+            return NoContent();
         }
 
         /// <summary>Turns on the signal light for specified station code.</summary>
         /// <remarks>Signal light is started with default color that is configured in appsettings.json</remarks>
-        /// <response code="200">Signal light started</response>
+        /// <response code="204">Signal light started</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPut("{stationCode}")]
         public IActionResult TurnOn(string stationCode)
         {
             _signalLightService.TurnOn(stationCode);
-            return Ok();
+            return NoContent();
         }
         
         /// <summary>Turns off the signal light for specified station code.</summary>
         /// <remarks>Current color or signal light is not saved. Color will be default one at next start</remarks>
-        /// <response code="200">Signal light turned off.</response>
+        /// <response code="204">Signal light turned off.</response>
         [HttpPut("{stationCode}")]
         public IActionResult TurnOff(string stationCode)
         {
             _signalLightService.TurnOff(stationCode);
-            return Ok();
+            return NoContent();
         }
         
         /// <summary> Returns active configuration on witch application is running. </summary>
         /// <response code="200">Configuration fetched successfully and returned.</response>
         [ProducesResponseType(typeof(SignalLightOptions), StatusCodes.Status200OK)]
         [HttpGet("/api/[controller]/parameters")]
-        public IActionResult GetActiveParameters()
+        public ActionResult<SignalLightOptions> GetActiveParameters()
         {
             return Ok(_configurationService.ActiveConfiguration);
         }
         
         /// <summary>Updates the name of signal light. </summary>
         /// <param name="name">New name.</param>
-        /// <response code="200">Signal light is renamed.</response>
+        /// <response code="204">Signal light is renamed.</response>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPut("/api/[controller]/parameters/{name}")]
         public IActionResult UpdateName(string name)
         {
             _configurationService.UpdateName(name);
-            return Ok();
+            return NoContent();
         }
         
         /// <summary>Updates default color of signal light. </summary>
-        /// <response code="200">Signal light always started with default color.</response>
+        /// <response code="204">Signal light always started with default color.</response>
         /// <param name="defaultLight">New default color value.</param>
         [ProducesResponseType(StatusCodes.Status200OK)]
         [HttpPut("/api/[controller]/parameters/{defaultLight}")]
         public IActionResult UpdateDefaultLight(LightColor defaultLight)
         {
             _configurationService.UpdateDefaultLight(defaultLight);
-            return Ok();
+            return NoContent();
         }
     }
 }
