@@ -3,8 +3,9 @@ namespace SeoulAir.Device.Domain.Enums
     public enum LightColor : byte
     {
         Black,
+        Blue,
         Green,
-        Orange,
+        Yellow,
         Red
     }
 }

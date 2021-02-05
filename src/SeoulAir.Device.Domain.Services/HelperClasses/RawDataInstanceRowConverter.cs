@@ -12,6 +12,8 @@ namespace SeoulAir.Device.Domain.Services.HelperClasses
     {
         public RawDataInstanceDto ConvertRow(ICollection<string> columns)
         {
+            if (columns == null) 
+                throw new ArgumentNullException(nameof(columns));
             if (columns.Count != 15)
                 throw new InvalidFileFormatException(InvalidFileFormatMessage);
 

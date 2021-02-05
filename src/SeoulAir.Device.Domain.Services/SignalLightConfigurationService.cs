@@ -1,7 +1,6 @@
 using System;
 using Microsoft.Extensions.Options;
 using SeoulAir.Device.Domain.Enums;
-using SeoulAir.Device.Domain.Extensions;
 using SeoulAir.Device.Domain.Interfaces.Services;
 using SeoulAir.Device.Domain.Options;
 using SeoulAir.Device.Domain.Resources;
@@ -22,8 +21,7 @@ namespace SeoulAir.Device.Domain.Services
         public void UpdateName(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException(string.Format(Strings.ParameterNullOrEmptyMessage, nameof(name))
-                    .FormatAsExceptionMessage());
+                throw new ArgumentException(string.Format(Strings.ParameterNullOrEmptyMessage, nameof(name)));
 
             _options.Value.Name = name;
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Text.Json.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -10,7 +9,7 @@ using SeoulAir.Device.Domain.Options;
 using SeoulAir.Device.Domain.Services.OptionsValidators;
 using static SeoulAir.Device.Domain.Resources.Strings;
 
-namespace SeoulAir.Device.Api.Extensions
+namespace SeoulAir.Device.Api.Configuration.Extensions
 {
     public static class ServiceCollectionExtensions
     {

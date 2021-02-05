@@ -10,8 +10,10 @@ namespace SeoulAir.Device.Domain.Exceptions
 
         public InvalidDateTimeFormatException(string message) : base(message) { }
 
-        public InvalidDateTimeFormatException(string message, Exception innerException) : base(message, innerException) { }
+        public InvalidDateTimeFormatException(string message, Exception innerException) 
+            : base(message, innerException) { }
 
-        protected InvalidDateTimeFormatException(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected InvalidDateTimeFormatException(SerializationInfo info, StreamingContext context) 
+            : base(info, context) { }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using static SeoulAir.Device.Domain.Resources.Strings;
 
-namespace SeoulAir.Device.Api.Extensions
+namespace SeoulAir.Device.Api.Configuration.Extensions
 {
     public static class ApplicationBuilderExtensions
     {

@@ -1,8 +1,7 @@
-﻿using MQTTnet;
+﻿using System.Text.Json;
+using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
-using Newtonsoft.Json;
-using SeoulAir.Device.Domain.Dtos;
 using SeoulAir.Device.Domain.Interfaces.Services;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,8 +55,8 @@ namespace SeoulAir.Device.Domain.Services
 
         public async Task SendDto(TDto messageObject)
         {
-            string jsonObject = JsonConvert.SerializeObject(messageObject);
-
+            string jsonObject = JsonSerializer.Serialize(messageObject);
+            
             MqttApplicationMessage message = new MqttApplicationMessageBuilder()
                 .WithTopic(_settings.Topic)
                 .WithPayload(jsonObject)

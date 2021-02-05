@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using SeoulAir.Device.Domain.Dtos;
 using SeoulAir.Device.Domain.Enums;
-using SeoulAir.Device.Domain.Extensions;
 using SeoulAir.Device.Domain.Interfaces.Services;
 using SeoulAir.Device.Domain.Options;
 using static SeoulAir.Device.Domain.Resources.Strings;
@@ -37,38 +36,36 @@ namespace SeoulAir.Device.Domain.Services
 
         public bool IsOn(string stationCode)
         {
-            if (!_stationSignalLights.ContainsKey(stationCode))
-                throw new ArgumentNullException(string.Format(StationCodeDoesNotExistMessage, stationCode)
-                    .FormatAsExceptionMessage());
+            if (_stationSignalLights.ContainsKey(stationCode)) 
+                return _stationSignalLights[stationCode].IsOn;
             
-            return _stationSignalLights[stationCode].IsOn;
+            throw new ArgumentNullException(string.Format(StationCodeDoesNotExistMessage, stationCode));
         }
 
         public LightColor GetActiveColor(string stationCode)
         {
-            if (!_stationSignalLights.ContainsKey(stationCode))
-                throw new ArgumentNullException(string.Format(StationCodeDoesNotExistMessage, stationCode)
-                    .FormatAsExceptionMessage());
+            if (_stationSignalLights.ContainsKey(stationCode)) 
+                return _stationSignalLights[stationCode].ActiveColor;
             
-            return _stationSignalLights[stationCode].ActiveColor;
+            throw new ArgumentNullException(string.Format(StationCodeDoesNotExistMessage, stationCode));
         }
 
         public void TurnOn(string stationCode)
         {
-            if (_stationSignalLights.ContainsKey(stationCode))
-            {
-                _stationSignalLights[stationCode].IsOn = true;
-                _stationSignalLights[stationCode].ActiveColor = _options.DefaultColor;
-            }
+            if (!_stationSignalLights.ContainsKey(stationCode)) 
+                return;
+            
+            _stationSignalLights[stationCode].IsOn = true;
+            _stationSignalLights[stationCode].ActiveColor = _options.DefaultColor;
         }
 
         public void TurnOff(string stationCode)
         {
-            if (_stationSignalLights.ContainsKey(stationCode))
-            {
-                _stationSignalLights[stationCode].IsOn = false;
-                _stationSignalLights[stationCode].ActiveColor = LightColor.Black;
-            }
+            if (!_stationSignalLights.ContainsKey(stationCode)) 
+                return;
+            
+            _stationSignalLights[stationCode].IsOn = false;
+            _stationSignalLights[stationCode].ActiveColor = LightColor.Black;
         }
 
         public void ChangeColor(string stationCode, LightColor color)
