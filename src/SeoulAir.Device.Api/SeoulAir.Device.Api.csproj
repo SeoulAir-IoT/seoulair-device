@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>b5eed377-7207-4ac7-bb27-c904da45cdce</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <RepositoryUrl>https://gitlab.com/seoulair/seoulair-device.git</RepositoryUrl>
@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\client\SeoulAir.Device.Client\SeoulAir.Device.Client.csproj" />
     <ProjectReference Include="..\SeoulAir.Device.Domain.Services\SeoulAir.Device.Domain.Services.csproj" />
     <ProjectReference Include="..\SeoulAir.Device.Domain\SeoulAir.Device.Domain.csproj" />
   </ItemGroup>

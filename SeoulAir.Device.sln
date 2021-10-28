@@ -18,6 +18,10 @@ EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{07DE858F-F9DF-48FE-91F4-3EAFEB3B34CC}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{20432F87-B877-47A3-B688-16FD5B59CC9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SeoulAir.Device.Client", "client\SeoulAir.Device.Client\SeoulAir.Device.Client.csproj", "{4990F334-D18C-4EB9-82E1-924BC9E39EA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +40,10 @@ Global
 		{53549C72-A719-4FFD-B1F3-09F9B1EDF538}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53549C72-A719-4FFD-B1F3-09F9B1EDF538}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53549C72-A719-4FFD-B1F3-09F9B1EDF538}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4990F334-D18C-4EB9-82E1-924BC9E39EA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4990F334-D18C-4EB9-82E1-924BC9E39EA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4990F334-D18C-4EB9-82E1-924BC9E39EA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4990F334-D18C-4EB9-82E1-924BC9E39EA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,5 +55,6 @@ Global
 		{53549C72-A719-4FFD-B1F3-09F9B1EDF538} = {07DE858F-F9DF-48FE-91F4-3EAFEB3B34CC}
 		{50EFF8B0-D680-4077-90DC-EDC1613E746D} = {07DE858F-F9DF-48FE-91F4-3EAFEB3B34CC}
 		{751FC758-1663-4D26-AA80-F23963D400B3} = {07DE858F-F9DF-48FE-91F4-3EAFEB3B34CC}
+		{4990F334-D18C-4EB9-82E1-924BC9E39EA7} = {20432F87-B877-47A3-B688-16FD5B59CC9C}
 	EndGlobalSection
 EndGlobal
