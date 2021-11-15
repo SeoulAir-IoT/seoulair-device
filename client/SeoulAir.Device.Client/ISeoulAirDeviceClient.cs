@@ -1,9 +1,8 @@
-﻿namespace SeoulAir.Device.Client
+﻿namespace SeoulAir.Device.Client;
+
+public interface ISeoulAirDeviceClient
 {
-    public interface ISeoulAirDeviceClient
-    {
-        IRowsApi RowsApi { get; }
-        IAirQualitySensorApi AirQualitySensorApi { get; }
-        ISignalLightApi SignalLightApi { get; }
-    }
+    IRowsApi RowsApi { get; }
+    IAirQualitySensorApi AirQualitySensorApi { get; }
+    ISignalLightApi SignalLightApi { get; }
 }

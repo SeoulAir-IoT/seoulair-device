@@ -1,7 +1,6 @@
-﻿namespace SeoulAir.Device.Client
+﻿namespace SeoulAir.Device.Client;
+
+public interface IRowsApi
 {
-    public interface IRowsApi
-    {
-        
-    }
+
 }

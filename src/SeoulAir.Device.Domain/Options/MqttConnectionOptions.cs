@@ -2,7 +2,7 @@ namespace SeoulAir.Device.Domain.Options
 {
     public class MqttConnectionOptions
     {
-        public static string AppSettingsPath => "Mqtt";
+        public const string OptionsPath = "Mqtt";
 
         public string BrokerAddress { get; set; }
         public int BrokerPort { get; set; }

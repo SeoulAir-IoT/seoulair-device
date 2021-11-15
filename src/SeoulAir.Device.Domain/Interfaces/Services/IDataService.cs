@@ -1,17 +1,16 @@
 ﻿using SeoulAir.Device.Domain.Dtos;
 
-namespace SeoulAir.Device.Domain.Interfaces.Services
+namespace SeoulAir.Device.Domain.Interfaces.Services;
+
+public interface IDataService
 {
-    public interface IDataService
-    {
-        RawDataInstanceDto ReadNext();
+    bool IsOn { get; }
 
-        void StopDevice();
+    RawDataInstanceDto LastReadData { get; }
 
-        void StartDevice();
+    RawDataInstanceDto ReadNext();
 
-        bool IsOn { get; }
+    void StopDevice();
 
-        RawDataInstanceDto LastReadData { get; }
-    }
+    void StartDevice();
 }

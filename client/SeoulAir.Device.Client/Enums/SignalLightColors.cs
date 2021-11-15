@@ -1,11 +1,10 @@
-﻿namespace SeoulAir.Device.Client.Enums
+﻿namespace SeoulAir.Device.Client.Enums;
+
+public enum SignalLightColors : byte
 {
-    public enum SignalLightColors : byte
-    {
-        Black,
-        Blue,
-        Green,
-        Yellow,
-        Red
-    }
+    Black,
+    Blue,
+    Green,
+    Yellow,
+    Red
 }

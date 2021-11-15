@@ -1,7 +1,6 @@
-﻿namespace SeoulAir.Device.Client
+﻿namespace SeoulAir.Device.Client;
+
+public class SeoulAirDeviceSettings
 {
-    public class SeoulAirDeviceSettings
-    {
-        public string ServiceUrl { get; init; }
-    }
+    public string ServiceUrl { get; init; }
 }
